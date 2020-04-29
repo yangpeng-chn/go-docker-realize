@@ -1,14 +1,20 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
-
-	"github.com/yangpeng-chn/go-docker-realize/app"
 )
 
+func handle(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "You have visited %s!", r.URL.Path)
+}
+
 func main() {
-	if err := http.ListenAndServe(":8888", app.NewMux()); err != nil {
-		log.Println(err)
+	http.HandleFunc("/", handle)
+	fmt.Println("Starting web server on port 8080")
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
