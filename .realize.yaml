@@ -3,15 +3,20 @@ settings:
     force: false
     interval: 0s
 schema:
-- name: work
-  path: .
-  commands: {}
-  watcher:
-    extensions:
-    - go
-    paths:
-    - /
-    ignored_paths:
-    - .git
-    - .realize
-    - vendor
+  - name: api
+    path: .
+    commands:
+      build:
+        status: true
+        method: go build -o main
+      run:
+        status: true
+        method: ./main
+    watcher:
+      extensions:
+        - go
+      paths:
+        - /
+      ignored_paths:
+        - .git
+        - .realize
